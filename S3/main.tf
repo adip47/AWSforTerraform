@@ -1,3 +1,21 @@
+locals {
+ 
+  service_name = "smsply"
+  owner        = "AC"
+ 
+}
+ 
+ 
+locals {
+  common_tags = {
+ 
+    service = local.service_name
+    owner   = local.owner
+}
+}
+ 
+ 
+ 
 resource "aws_s3_bucket" "test-bucket-sm" {
         bucket = "test-bucket-sm-${var.env_name}"
         acl = "private"
@@ -8,6 +26,7 @@ resource "aws_s3_bucket" "test-bucket-sm" {
       }
     }
 }
+    tags = local.common_tags
 }
 resource "aws_s3_bucket" "test-bucket-sm-bkt" {
         bucket = "test-bucket-sm-bkt-${var.env_name}"
@@ -19,4 +38,5 @@ resource "aws_s3_bucket" "test-bucket-sm-bkt" {
       }
     }
   }
+    tags = local.common_tags
 }
